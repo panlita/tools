@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>excel copy to json</title>
+    <script src="https://cdn.bootcss.com/FileSaver.js/2014-11-29/FileSaver.js"></script>
+</head>
+<script>    
+    // excel copy to json
+	// 2018-04-16
+    function getData() {
+        var el = document.getElementById('textarea').value;
+        let arr = (JSON.stringify(el)).split('"')[1].split("\\n");
+        let res = [];
+        let name = arr[0].split('\\t');
+        for (let i = 1; i < arr.length - 1; i++) {
+            let one = {}
+            let val = arr[i].split('\\t');
+            for (let j = 0; j < name.length; j++) {
+                one[name[j]] = val[j]
+            }
+            res.push(one);
+        }
+		console.log('Result', res );
+        let data = JSON.stringify({ data: res });
+        var blob = new Blob([data], { type: "application/json" });
+        saveAs(blob, "hello.json");
+    }
+</script>
+
+<body>
+	<h2>
+		Copy excel file lines here , format it to JSON file.
+	</h2>
+	
+	<div>
+		<textarea id="textarea" cols="30" rows="10" placeholder="copy excel lines here"></textarea>
+	</div>
+	<div>
+		<button onClick="getData()">format</button>
+	</div>
+    
+</body>
+
+
+</html>
