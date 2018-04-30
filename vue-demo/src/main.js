@@ -3,7 +3,10 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-
+import vuedemo from './components/index';
+import './assets/demo.css'
+console.log(vuedemo);
+Vue.use(vuedemo);
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
